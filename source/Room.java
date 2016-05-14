@@ -16,9 +16,13 @@ public abstract class Room{
 	// the coordinates for each room
 	Coordinates coord;
 	
+	// description for the room
+	String description;
+	
 	// constructor
 	public Room(int prevX, int prevY, String dir, Floor floor)
 	{
+		
 		// new rooms start with null pointers...
 		north = null;
 		south = null;
@@ -29,13 +33,13 @@ public abstract class Room{
 		switch(dir)
 		{
 		case "north":
-			south = floor.FindRoom(prevX, prevY);
+			south = floor.GetPreviousRoom();
 		case "south":
-			north = floor.FindRoom(prevX, prevY);
+			north = floor.GetPreviousRoom();
 		case "east":
-			west = floor.FindRoom(prevX, prevY);
+			west = floor.GetPreviousRoom();
 		case "west":
-			east = floor.FindRoom(prevX, prevY);
+			east = floor.GetPreviousRoom();
 		}
 		// set the new coordinates
 		coord = (setCoordinates(prevX, prevY, dir));
@@ -61,6 +65,13 @@ public abstract class Room{
 		default:
 			return null;
 		}
+	}
+	
+	boolean isEqual(Room otherRoom)
+	{
+		if(otherRoom.getCoord().getX() == this.coord.getX() && otherRoom.getCoord().getY() == this.coord.getY())
+			return true;
+		else return false;
 	}
 		
 	Coordinates getCoord()
