@@ -23,6 +23,14 @@ public class Floor {
 	public Room CreateRoom(String roomType, String dir)
 	{
 		Room ret = null;
+		Room oldRoom = FindRoom(dir);	// check to see if a room already exists at these coordinates
+		
+		if(oldRoom != null)
+		{
+			rooms.remove(oldRoom);
+			rooms.addFirst(oldRoom); 	// move the room to the front of the LinkedList
+			return oldRoom;
+		}
 		
 		switch(roomType)
 		{
@@ -31,20 +39,41 @@ public class Floor {
 		case "EnemyRoom":
 			ret = new EnemyRoom(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir, this);
 		case "EmptyRoom":
-			ret = new EnemyRoom(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir, this);
+			ret = new EmptyRoom(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir, this);
 		}
 		
-		rooms.add(ret);
+		rooms.addFirst(ret);
 		return ret;
 	}
 	
-	public Room FindRoom(int roomX, int roomY)
+	public Room GetPreviousRoom()
+	{
+		return rooms.get(1);
+	}
+	
+	public Room FindRoom(String dir)
+	{
+		EmptyRoom newRoom = new EmptyRoom(0, 0, null, null);
+		newRoom.setCoordinates(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir);
+		
+		for(int i = 0; i < rooms.size(); i++)
+		{
+			if(currentRoom.isEqual(newRoom))
+			{
+				return rooms.get(i);
+			}
+		}
+		
+		return null;
+	}
+	
+	public Room FindRoom(Room otherRoom)
 	{
 		// pretty inefficient, there's probably a better way to do this. 
 		// Probably using the current room...
 		for(int i = 0; i < rooms.size(); i++)
 		{
-			if(rooms.get(i).getCoord().getX() == roomX && rooms.get(i).getCoord().getY() == roomY)
+			if(currentRoom.isEqual(otherRoom))
 			{
 				return rooms.get(i);
 			}
