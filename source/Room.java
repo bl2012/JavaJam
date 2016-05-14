@@ -16,6 +16,9 @@ public abstract class Room{
 	// the coordinates for each room
 	Coordinates coord;
 	
+	// description for the room
+	String description;
+	
 	// constructor
 	public Room(int prevX, int prevY, String dir, Floor floor)
 	{
