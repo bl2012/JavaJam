@@ -111,14 +111,14 @@ public class InfiniTower extends Application {
 	}
 
 	public void updateMap(Floor f) {
-		//int roomNum = 0;
+		
 		int currXCoord = player.getCurrentCoord().getX();
 		int currYCoord = player.getCurrentCoord().getY();
 		LinkedList<Room> rooms = f.getRooms();
 		Pane map = new Pane();
 		for (int i = rooms.size()-1; i >= 0; i--) {
 			Room room = rooms.get(i);
-
+			String type = room.getType();
 			int roomXCoord = room.getCoord().getX();
 			int roomYCoord = room.getCoord().getY();
 			int relXCoord = roomXCoord - currXCoord;
@@ -126,6 +126,15 @@ public class InfiniTower extends Application {
 			//Rectangle r = new Rectangle();
 			Rectangle mapSquare = new Rectangle();
 			
+			
+			if(type.equals("ladder")) {
+				mapSquare.setStroke(Color.GREEN);
+			} else if(type.equals("enemy")) {
+				mapSquare.setStroke(Color.RED);
+			} else {
+				mapSquare.setFill(Color.BLACK);
+				mapSquare.setStroke(Color.BLACK);
+			}
 			if(i == 0) {
 				mapSquare.setFill(Color.BLUE);
 			}
