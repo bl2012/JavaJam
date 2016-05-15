@@ -90,7 +90,10 @@ public class Player {
 	
 	public void EnviroUpdate()
 	{
-		System.out.println("Floor: " + currentFloor.getFloorNum());
+		if(currentFloor.getCurrentRoom().bIsVisited)
+			System.out.println("This room is familiar");
+		
+		System.out.print("Floor: " + currentFloor.getFloorNum() + "	");
 		System.out.println("Room : " + currentFloor.getCurrentRoom().getCoord().getX() + ", " + currentFloor.getCurrentRoom().getCoord().getY());
 	}
 	

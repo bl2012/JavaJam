@@ -22,25 +22,39 @@ public abstract class Room{
 	// constructor
 	public Room(int prevX, int prevY, String dir, Floor floor)
 	{
+		// testing the "previousRoom" method
+		
+		//if(floor.GetPreviousRoom().isEqual(floor.FindRoom(prevX, prevY)))
+		{
+			//System.out.println("Get Previous Room is working huzzah!!");
+		}
+		
+		
+		// set the new coordinates
+		coord = (setCoordinates(prevX, prevY, dir));
+		
+		// visited will be set to true when the player leaves the room.
+		// this allows us to check if the room has previously been visited
+		// thus eliminating duplication of rooms at the same coordinates
+		bIsVisited = false;
+		
+		// each room should have a description, describing it to the player
+		description = "This room is dank, yo.";
+		
+		if(floor.GetPreviousRoom() != null)
+		{
+			//System.out.println("Room " + floor.GetPreviousRoom().getCoord().getX() + ", " + floor.GetPreviousRoom().getCoord().getY() + " has been visited");
+			floor.GetPreviousRoom().bIsVisited = true;
+		}
 		
 		// new rooms start with null pointers...
 		north = null;
 		south = null;
 		east = null;
 		west = null;
-		description = "This room is dank, yo.";
+				
 		// except in the direction the player has come from
-		if(dir == null)
-		{
-			// set the new coordinates
-			coord = (setCoordinates(prevX, prevY, dir));
-			
-			// visited will be set to true when the player leaves the room.
-			// this allows us to check if the room has previously been visited
-			// thus eliminating duplication of rooms at the same coordinates
-			bIsVisited = false;
-			return;
-		}
+		if(dir == null) return;
 		
 		switch(dir)
 		{
@@ -53,13 +67,7 @@ public abstract class Room{
 		case "west":
 			east = floor.GetPreviousRoom();
 		}
-		// set the new coordinates
-		coord = (setCoordinates(prevX, prevY, dir));
-		
-		// visited will be set to true when the player leaves the room.
-		// this allows us to check if the room has previously been visited
-		// thus eliminating duplication of rooms at the same coordinates
-		bIsVisited = false;
+
 	}
 	
 	Coordinates setCoordinates(int prevX, int prevY, String dir)
@@ -86,8 +94,16 @@ public abstract class Room{
 	boolean isEqual(Room otherRoom)
 	{
 		if(otherRoom.getCoord().getX() == this.coord.getX() && otherRoom.getCoord().getY() == this.coord.getY())
+		{
+			System.out.print("Room " + otherRoom.getCoord().getX() + ", " + otherRoom.getCoord().getY() + " = ");
+			System.out.println("Room " + this.coord.getX() + ", " + this.coord.getY());
+
 			return true;
-		else return false;
+		}
+		else 
+		{
+			return false;
+		}
 	}
 		
 	Coordinates getCoord()
@@ -111,7 +127,6 @@ public abstract class Room{
 	}
 
 	public String getDescription() {
-		// TODO Auto-generated method stub
 		return this.description;
 	}
 }
