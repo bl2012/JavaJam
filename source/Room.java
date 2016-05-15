@@ -30,6 +30,9 @@ public abstract class Room{
 		// thus eliminating duplication of rooms at the same coordinates
 		bIsVisited = false;
 		
+		// each room should have a description, describing it to the player
+		description = "This room is dank, yo.";
+		
 		if(floor.GetPreviousRoom() != null)
 			floor.GetPreviousRoom().bIsVisited = true;
 		
@@ -38,7 +41,7 @@ public abstract class Room{
 		south = null;
 		east = null;
 		west = null;
-		
+				
 		// except in the direction the player has come from
 		if(dir == null) return;
 		
@@ -102,6 +105,10 @@ public abstract class Room{
 	boolean hasDownLadder()
 	{
 		return bHasDownLadder;
+	}
+
+	public String getDescription() {
+		return this.description;
 	}
 }
 
