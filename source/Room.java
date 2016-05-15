@@ -10,8 +10,8 @@ public abstract class Room{
 	
 	// booleans for checking various states
 	boolean bIsVisited;
-	boolean bHasUpLadder;
-	boolean bHasDownLadder;
+	//boolean bHasUpLadder;
+	//boolean bHasDownLadder;
 	
 	// the coordinates for each room
 	Coordinates coord;
@@ -135,16 +135,20 @@ public abstract class Room{
 		return bIsVisited;
 	}
 	
-	boolean hasUpLadder()
+	boolean getLadderGoesUp()
 	{
-		return bHasUpLadder;
-	}
+		return false;
+	} 
 	
-	boolean hasDownLadder()
+	boolean getLadderGoesDown()
 	{
-		return bHasDownLadder;
+		return false;
 	}
 
+	void setLadderUp(boolean ladderGoesUp) {
+		return;
+	}
+	
 	public String getDescription() {
 		if(bIsVisited) return visitedDescription;
 		else 		   return newRoomDescription;
