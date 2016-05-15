@@ -17,19 +17,13 @@ public abstract class Room{
 	Coordinates coord;
 	
 	// description for the room
-	String description;
+	String type;
+	String newRoomDescription;
+	String visitedDescription;
 	
 	// constructor
 	public Room(int prevX, int prevY, String dir, Floor floor)
-	{
-		// testing the "previousRoom" method
-		
-		//if(floor.GetPreviousRoom().isEqual(floor.FindRoom(prevX, prevY)))
-		{
-			//System.out.println("Get Previous Room is working huzzah!!");
-		}
-		
-		
+	{	
 		// set the new coordinates
 		coord = (setCoordinates(prevX, prevY, dir));
 		
@@ -39,7 +33,8 @@ public abstract class Room{
 		bIsVisited = false;
 		
 		// each room should have a description, describing it to the player
-		description = "This room is dank, yo.";
+		newRoomDescription = "This room is dank, yo.";
+		visitedDescription = "This room is familiar.";
 		
 		if(floor.GetPreviousRoom() != null)
 		{
@@ -60,12 +55,16 @@ public abstract class Room{
 		{
 		case "north":
 			south = floor.GetPreviousRoom();
+			break;
 		case "south":
 			north = floor.GetPreviousRoom();
+			break;
 		case "east":
 			west = floor.GetPreviousRoom();
+			break;
 		case "west":
 			east = floor.GetPreviousRoom();
+			break;
 		}
 
 	}
@@ -127,7 +126,8 @@ public abstract class Room{
 	}
 
 	public String getDescription() {
-		return this.description;
+		if(bIsVisited) return visitedDescription;
+		else return newRoomDescription;
 	}
 }
 
