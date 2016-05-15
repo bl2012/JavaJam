@@ -78,14 +78,16 @@ public class Floor {
 	
 	public Room FindRoom(String dir) // using a direction
 	{
-		EmptyRoom newRoom = new EmptyRoom(0, 0, dir, this);
+		// newRoom = new EmptyRoom(0, 0, dir, this);
 		
-		try {
-		newRoom.setCoordinates(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir);
-		}
-		catch (NullPointerException itsNUllForSomeReason){
-			System.out.println("it's null, yo");
-		}
+		
+		//try {
+			EmptyRoom newRoom = new EmptyRoom(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir, this);
+			//newRoom.setCoordinates(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir);
+		//}
+		//catch (NullPointerException itsNUllForSomeReason){
+			//System.out.println("it's null, yo");
+		//}
 		for(int i = 0; i < rooms.size(); i++)
 		{
 			if(currentRoom.isEqual(newRoom))
