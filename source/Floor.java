@@ -1,6 +1,7 @@
 package source;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Floor {
 	
@@ -8,7 +9,7 @@ public class Floor {
 	private int floorNum;
 	private LinkedList<Room> rooms = new LinkedList<Room>();
 	private String[] roomTypes = new String[] {"LadderRoom", "EnemyRoom", "EmptyRoom"};
-	
+	Random rand = new Random();
 	public Floor(int num)
 	{
 		if(num == 0) // if this is the first floor created, the initial room will be empty
@@ -23,7 +24,7 @@ public class Floor {
 	// a room of a random type is created
 	public Room CreateRandomRoom(String dir)
 	{
-		int randRoom = 1;
+		int randRoom = rand.nextInt(3);
 		
 		return CreateRoom(roomTypes[randRoom], dir);
 	}
