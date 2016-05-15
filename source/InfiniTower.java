@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 //import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 //import javafx.scene.control.ListView;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
@@ -26,6 +27,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.shape.*;
 import java.util.LinkedList;
+
 
 
 /**
@@ -44,7 +46,7 @@ public class InfiniTower extends Application {
 		player = new Player();
 		//The topmost pane where all subsequent panes will go
 		primaryPane = new BorderPane();
-
+		
 		// this is just a little square that goes in the center of the 
 		// "map" display
 
@@ -57,7 +59,7 @@ public class InfiniTower extends Application {
 		
 		roomInfo = new Label();
 		primaryPane.setTop(roomInfo);
-		roomInfo.setText("Ye find yeself in yon dungeon.");
+		roomInfo.setText("Ye find yeself in yon tower.");
 
 		updateMap(player.getCurrentFloor());
 
@@ -69,14 +71,19 @@ public class InfiniTower extends Application {
 		Button southBtn = new Button("South");
 		Button eastBtn = new Button("East");
 		Button westBtn = new Button("West");
-		compassBtns.setConstraints(northBtn, 1, 0);
-		compassBtns.setConstraints(southBtn, 1, 2);
-		compassBtns.setConstraints(eastBtn, 2, 1);
-		compassBtns.setConstraints(westBtn, 0, 1);
+		GridPane.setConstraints(northBtn, 1, 0);
+		GridPane.setConstraints(southBtn, 1, 2);
+		GridPane.setConstraints(eastBtn, 2, 1);
+		GridPane.setConstraints(westBtn, 0, 1);
 		compassBtns.getChildren().addAll(northBtn, southBtn, eastBtn, westBtn);
 		compass.setCenter(compassBtns);
+		compass.toFront();
+		BorderPane.setAlignment(compassBtns, Pos.CENTER);
+		BorderPane.setAlignment(compass, Pos.CENTER);
+		
 
-		primaryPane.setBottom(compass);
+		primaryPane.setBottom(compassBtns);
+		
 
 		northBtn.setOnAction(e -> {
 			player.GoNorth();
@@ -98,7 +105,20 @@ public class InfiniTower extends Application {
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
 		});
-
+		
+		GridPane playerActions = new GridPane();
+		Button climbUp = new Button("Climb Up");
+		Button climbDown = new Button("Climb Down");
+		Button look = new Button("Look");
+		GridPane.setConstraints(climbUp, 0, 0);
+		GridPane.setConstraints(climbDown, 0, 1);
+		GridPane.setConstraints(look, 0, 2);
+		
+		playerActions.getChildren().addAll(climbUp, climbDown, look);
+		
+		primaryPane.setLeft(playerActions);
+		BorderPane.setAlignment(compass, Pos.BOTTOM_CENTER);
+		
 		Scene scene = new Scene(primaryPane, 500, 500);	
 		
 		primaryStage.setTitle("InfiniTower");
@@ -126,7 +146,7 @@ public class InfiniTower extends Application {
 			//Rectangle r = new Rectangle();
 			Rectangle mapSquare = new Rectangle();
 			
-			
+			mapSquare.setStrokeWidth(2);
 			if(type.equals("ladder")) {
 				mapSquare.setStroke(Color.GREEN);
 			} else if(type.equals("enemy")) {
@@ -141,11 +161,14 @@ public class InfiniTower extends Application {
 			
 			mapSquare.setWidth(20);
 			mapSquare.setHeight(20);
-			mapSquare.setX(250 + relXCoord * 21);
-			mapSquare.setY(250 +relYCoord * 21);
+			mapSquare.setX(200 + relXCoord * 23);
+			mapSquare.setY(200 + relYCoord * 23);
 			//System.out.println("Square: " + relXCoord + "," + relYCoord + " created");
 			map.getChildren().addAll(mapSquare);
 			//primaryPane.setCenter(map);
+			map.toBack();
+			//map.setMaxSize(300, 300);
+			//primaryPane.getBottom
 		}
 		primaryPane.setCenter(map);
 	}
