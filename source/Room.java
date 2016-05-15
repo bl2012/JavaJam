@@ -22,6 +22,14 @@ public abstract class Room{
 	// constructor
 	public Room(int prevX, int prevY, String dir, Floor floor)
 	{
+		// testing the "previousRoom" method
+		
+		//if(floor.GetPreviousRoom().isEqual(floor.FindRoom(prevX, prevY)))
+		{
+			//System.out.println("Get Previous Room is working huzzah!!");
+		}
+		
+		
 		// set the new coordinates
 		coord = (setCoordinates(prevX, prevY, dir));
 		
@@ -34,7 +42,10 @@ public abstract class Room{
 		description = "This room is dank, yo.";
 		
 		if(floor.GetPreviousRoom() != null)
+		{
+			//System.out.println("Room " + floor.GetPreviousRoom().getCoord().getX() + ", " + floor.GetPreviousRoom().getCoord().getY() + " has been visited");
 			floor.GetPreviousRoom().bIsVisited = true;
+		}
 		
 		// new rooms start with null pointers...
 		north = null;
@@ -83,8 +94,16 @@ public abstract class Room{
 	boolean isEqual(Room otherRoom)
 	{
 		if(otherRoom.getCoord().getX() == this.coord.getX() && otherRoom.getCoord().getY() == this.coord.getY())
+		{
+			System.out.print("Room " + otherRoom.getCoord().getX() + ", " + otherRoom.getCoord().getY() + " = ");
+			System.out.println("Room " + this.coord.getX() + ", " + this.coord.getY());
+
 			return true;
-		else return false;
+		}
+		else 
+		{
+			return false;
+		}
 	}
 		
 	Coordinates getCoord()
