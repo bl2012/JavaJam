@@ -41,14 +41,44 @@ public class Floor {
 	// a room of a random type is created
 	public Room CreateRandomRoom(String dir)
 	{
-		int randRoom = rand.nextInt(3);
+		int randRoom = getRandNum();
 		
 		while(bHasLadderUp && (roomTypes[randRoom] == "LadderRoom"))
 		{
-			randRoom = rand.nextInt(3);
+			randRoom = getRandNum();
 		}
 		
 		return CreateRoom(roomTypes[randRoom], dir);
+	}
+	
+	private int getRandNum()
+	{
+		switch(rand.nextInt(10))
+		{
+		case 0:
+			return 0;
+		case 1:
+			return 1;
+		case 2:
+			return 1;
+		case 3:
+			return 1;
+		case 4:
+			return 2;
+		case 5:
+			return 2;
+		case 6:
+			return 2;
+		case 7:
+			return 2;
+		case 8:
+			return 2;
+		case 9:
+			return 2;
+		default:
+			return 2;
+		}
+		
 	}
 	
 	public Room CreateFirstRoom(String roomType) {
