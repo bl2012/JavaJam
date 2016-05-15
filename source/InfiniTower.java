@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 //import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 //import javafx.scene.control.ListView;
 import javafx.collections.ObservableList;
@@ -52,19 +53,13 @@ public class InfiniTower extends Application {
 		// this is just a little square that goes in the center of the 
 		// "map" display
 
-		Rectangle centerSquare = new Rectangle();
-		//centerSquare.setX(200);
-		//centerSquare.setY(200);
-		centerSquare.setWidth(20);
-		centerSquare.setHeight(20);
-		primaryPane.setCenter(centerSquare);
 		
 		roomInfo = new Label();
 		primaryPane.setTop(roomInfo);
-		roomInfo.setText("Ye find yeself in yon dungeon.");
+		roomInfo.setText("Ye find yeself in yon tower.");
 
 		updateMap(player.getCurrentFloor());
-		
+		//********************Player Actions**************************
 		GridPane playerActions = new GridPane();
 		Button climbUp = new Button("Climb Up");
 		Button climbDown = new Button("Climb Down");
@@ -95,6 +90,7 @@ public class InfiniTower extends Application {
 		
 		// this "compass" pane holds the compass buttons that are stored in 
 		// a gridPane
+		//*****************************Directional Buttons***************************
 		VBox compass = new VBox();
 		GridPane compassBtns = new GridPane();
 		Button northBtn = new Button("North");
@@ -108,6 +104,7 @@ public class InfiniTower extends Application {
 		compassBtns.getChildren().addAll(northBtn, southBtn, eastBtn, westBtn);
 		//compass.setCenter(compassBtns);
 		BorderPane.setAlignment(compass, Pos.CENTER);
+		BorderPane.setMargin(compass, new Insets(0,0,0,200));
 		compass.getChildren().add(compassBtns);
 
 		primaryPane.setBottom(compass);
@@ -190,8 +187,8 @@ public class InfiniTower extends Application {
 			
 			mapSquare.setWidth(20);
 			mapSquare.setHeight(20);
-			mapSquare.setX(250 + relXCoord * 23);
-			mapSquare.setY(250 +relYCoord * 23);
+			mapSquare.setX(170 + relXCoord * 23);
+			mapSquare.setY(200 +relYCoord * 23);
 			//System.out.println("Square: " + relXCoord + "," + relYCoord + " created");
 			map.getChildren().addAll(mapSquare);
 			//primaryPane.setCenter(map);
