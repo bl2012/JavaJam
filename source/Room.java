@@ -149,7 +149,7 @@ public abstract class Room{
 		return;
 	}
 	
-	public String getDescription() {
+	String getDescription() {
 		if(bIsVisited) return visitedDescription;
 		else 		   return newRoomDescription;
 	}
