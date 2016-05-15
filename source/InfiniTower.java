@@ -38,6 +38,7 @@ public class InfiniTower extends Application {
 
 	Player player;
 	BorderPane primaryPane;
+	Label roomInfo;
 	public void start(Stage primaryStage) {
 
 		player = new Player();
@@ -53,6 +54,10 @@ public class InfiniTower extends Application {
 		centerSquare.setWidth(20);
 		centerSquare.setHeight(20);
 		primaryPane.setCenter(centerSquare);
+		
+		roomInfo = new Label();
+		primaryPane.setTop(roomInfo);
+		roomInfo.setText("Ye find yeself in yon dungeon.");
 
 		updateMap(player.getCurrentFloor());
 
@@ -76,18 +81,22 @@ public class InfiniTower extends Application {
 		northBtn.setOnAction(e -> {
 			player.GoNorth();
 			updateMap(player.getCurrentFloor());
+			updateDescription(player.getCurrentFloor());
 		});
 		southBtn.setOnAction(e -> {
 			player.GoSouth();
 			updateMap(player.getCurrentFloor());
+			updateDescription(player.getCurrentFloor());
 		});
 		eastBtn.setOnAction(e -> {
 			player.GoEast();
 			updateMap(player.getCurrentFloor());
+			updateDescription(player.getCurrentFloor());
 		});
 		westBtn.setOnAction(e -> {
 			player.GoWest();
 			updateMap(player.getCurrentFloor());
+			updateDescription(player.getCurrentFloor());
 		});
 
 		Scene scene = new Scene(primaryPane, 500, 500);	
@@ -130,5 +139,8 @@ public class InfiniTower extends Application {
 			//primaryPane.setCenter(map);
 		}
 		primaryPane.setCenter(map);
+	}
+	public void updateDescription(Floor f) {
+		roomInfo.setText(f.getCurrentRoom().getDescription());
 	}
 }
