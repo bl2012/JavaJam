@@ -28,7 +28,7 @@ public abstract class Room{
 		south = null;
 		east = null;
 		west = null;
-		
+		description = "This room is dank, yo.";
 		// except in the direction the player has come from
 		if(dir == null)
 		{
@@ -108,6 +108,11 @@ public abstract class Room{
 	boolean hasDownLadder()
 	{
 		return bHasDownLadder;
+	}
+
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return this.description;
 	}
 }
 
