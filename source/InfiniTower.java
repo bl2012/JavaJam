@@ -7,9 +7,11 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 //import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
@@ -74,9 +76,26 @@ public class InfiniTower extends Application {
 		BorderPane.setAlignment(playerActions, Pos.CENTER);
 		primaryPane.setLeft(playerActions);
 		
+		climbUp.setOnAction(e -> {
+			player.ClimbUp();
+			updateMap(player.getCurrentFloor());
+			updateDescription(player.getCurrentFloor());
+		});
+		climbUp.setOnAction(e -> {
+			player.ClimbDown();
+			updateMap(player.getCurrentFloor());
+			updateDescription(player.getCurrentFloor());
+		});
+		climbUp.setOnAction(e -> {
+			player.Look();
+			updateMap(player.getCurrentFloor());
+			updateDescription(player.getCurrentFloor());
+		});
+		
+		
 		// this "compass" pane holds the compass buttons that are stored in 
 		// a gridPane
-		BorderPane compass = new BorderPane();
+		VBox compass = new VBox();
 		GridPane compassBtns = new GridPane();
 		Button northBtn = new Button("North");
 		Button southBtn = new Button("South");
@@ -87,7 +106,9 @@ public class InfiniTower extends Application {
 		GridPane.setConstraints(eastBtn, 2, 1);
 		GridPane.setConstraints(westBtn, 0, 1);
 		compassBtns.getChildren().addAll(northBtn, southBtn, eastBtn, westBtn);
-		compass.setCenter(compassBtns);
+		//compass.setCenter(compassBtns);
+		BorderPane.setAlignment(compass, Pos.CENTER);
+		compass.getChildren().add(compassBtns);
 
 		primaryPane.setBottom(compass);
 
