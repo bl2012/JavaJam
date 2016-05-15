@@ -26,6 +26,7 @@ public class Player {
 		currentFloor.CreateRandomRoom("north");
 		currentCoord = currentFloor.getCurrentRoom().coord;
 		System.out.println("Move North");
+		EnviroUpdate();
 	}
 	
 	public void GoSouth()
@@ -33,7 +34,7 @@ public class Player {
 		currentFloor.CreateRandomRoom("south");
 		currentCoord = currentFloor.getCurrentRoom().coord;
 		System.out.println("Move South");
-
+		EnviroUpdate();
 	}
 	
 	public void GoEast()
@@ -41,7 +42,7 @@ public class Player {
 		currentFloor.CreateRandomRoom("east");
 		currentCoord = currentFloor.getCurrentRoom().coord;
 		System.out.println("Move East");
-
+		EnviroUpdate();
 	}
 	
 	public void GoWest()
@@ -49,7 +50,7 @@ public class Player {
 		currentFloor.CreateRandomRoom("west");
 		currentCoord = currentFloor.getCurrentRoom().coord;
 		System.out.println("Move West");
-
+		EnviroUpdate();
 	}
 	
 	// these methods move the player between floors
@@ -59,6 +60,8 @@ public class Player {
 		Floor newFloor = new Floor(++numFloors);
 		currentFloor = newFloor;
 		floors.addFirst(newFloor);
+		System.out.print("New ");
+		EnviroUpdate();
 	}
 	
 	public void ClimbDown() // the player moves down to the previous floor
@@ -67,6 +70,7 @@ public class Player {
 		floors.remove(newFloor);
 		floors.addFirst(newFloor); // move this floor to the front of the linked list
 		currentFloor = newFloor;
+		EnviroUpdate();
 	}
 	
 	// these methods control actions within a room

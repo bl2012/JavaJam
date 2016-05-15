@@ -11,8 +11,12 @@ public class Floor {
 	
 	public Floor(int num)
 	{
-		//currentRoom = CreateRoom("EmptyRoom", null);
-		currentRoom = CreateFirstRoom("LadderRoom", null);
+		if(num == 0) // if this is the first floor created, the initial room will be empty
+		{
+			currentRoom = CreateRoom("EmptyRoom", null);
+		}
+		else // otherwise there will be a down ladder in the room
+			currentRoom = CreateFirstRoom("LadderRoom", null);
 		floorNum = num;
 	}
 	
@@ -26,6 +30,7 @@ public class Floor {
 	
 	public Room CreateFirstRoom(String roomType, String dir) {
 		Room ret = null;
+		
 		switch(roomType) // Factory Design-esque instantiation
 		{
 		case "LadderRoom":
@@ -35,6 +40,7 @@ public class Floor {
 		case "EmptyRoom":
 			ret = new EmptyRoom(0, 0, dir, this);
 		}
+		
 		rooms.addFirst(ret);
 		currentRoom = ret;
 		return ret;
@@ -108,7 +114,7 @@ public class Floor {
 	
 	public Room GetPreviousRoom()
 	{
-		if(rooms.get(1) == null) return null;
+		if(rooms.size() <= 1) return null;
 		
 		return rooms.get(1);
 	}
