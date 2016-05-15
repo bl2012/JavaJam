@@ -22,6 +22,16 @@ public abstract class Room{
 	// constructor
 	public Room(int prevX, int prevY, String dir, Floor floor)
 	{
+		// set the new coordinates
+		coord = (setCoordinates(prevX, prevY, dir));
+		
+		// visited will be set to true when the player leaves the room.
+		// this allows us to check if the room has previously been visited
+		// thus eliminating duplication of rooms at the same coordinates
+		bIsVisited = false;
+		
+		if(floor.GetPreviousRoom() != null)
+			floor.GetPreviousRoom().bIsVisited = true;
 		
 		// new rooms start with null pointers...
 		north = null;
@@ -30,17 +40,7 @@ public abstract class Room{
 		west = null;
 		
 		// except in the direction the player has come from
-		if(dir == null)
-		{
-			// set the new coordinates
-			coord = (setCoordinates(prevX, prevY, dir));
-			
-			// visited will be set to true when the player leaves the room.
-			// this allows us to check if the room has previously been visited
-			// thus eliminating duplication of rooms at the same coordinates
-			bIsVisited = false;
-			return;
-		}
+		if(dir == null) return;
 		
 		switch(dir)
 		{
@@ -53,13 +53,7 @@ public abstract class Room{
 		case "west":
 			east = floor.GetPreviousRoom();
 		}
-		// set the new coordinates
-		coord = (setCoordinates(prevX, prevY, dir));
-		
-		// visited will be set to true when the player leaves the room.
-		// this allows us to check if the room has previously been visited
-		// thus eliminating duplication of rooms at the same coordinates
-		bIsVisited = false;
+
 	}
 	
 	Coordinates setCoordinates(int prevX, int prevY, String dir)

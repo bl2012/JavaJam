@@ -23,7 +23,7 @@ public class Floor {
 	// a room of a random type is created
 	public Room CreateRandomRoom(String dir)
 	{
-		int randRoom = 0;
+		int randRoom = 2;
 		
 		return CreateRoom(roomTypes[randRoom], dir);
 	}
@@ -78,16 +78,8 @@ public class Floor {
 	
 	public Room FindRoom(String dir) // using a direction
 	{
-		// newRoom = new EmptyRoom(0, 0, dir, this);
-		
-		
-		//try {
-			EmptyRoom newRoom = new EmptyRoom(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir, this);
-			//newRoom.setCoordinates(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir);
-		//}
-		//catch (NullPointerException itsNUllForSomeReason){
-			//System.out.println("it's null, yo");
-		//}
+		EmptyRoom newRoom = new EmptyRoom(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir, this);
+
 		for(int i = 0; i < rooms.size(); i++)
 		{
 			if(currentRoom.isEqual(newRoom))
@@ -114,11 +106,11 @@ public class Floor {
 	
 	// getters
 	
-	public Room GetPreviousRoom()
+	public Room GetPreviousRoom() // called before the new room is added to the linked list
 	{
 		if(rooms.size() <= 1) return null;
 		
-		return rooms.get(1);
+		return rooms.get(0);
 	}
 	
 	public Room getCurrentRoom() {
