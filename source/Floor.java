@@ -6,19 +6,31 @@ import java.util.Random;
 public class Floor {
 	
 	private Room currentRoom;
+
+	private Floor floorAbove;
+	private Floor floorBelow;
+	
 	private int floorNum;
-	private LinkedList<Room> rooms = new LinkedList<Room>();
 	private String[] roomTypes = new String[] {"LadderRoom", "EnemyRoom", "EmptyRoom"};
+
+	private LinkedList<Room> rooms = new LinkedList<Room>();
+	
+	
 	Random rand = new Random();
+	
+	
 	public Floor(int num)
 	{
 		if(num == 0) // if this is the first floor created, the initial room will be empty
 		{
-			currentRoom = CreateFirstRoom("EmptyRoom", null);
+			currentRoom = CreateFirstRoom("EmptyRoom");
 		}
 		else // otherwise there will be a down ladder in the room
 			currentRoom = CreateRoom("LadderRoom", null);
+		
 		floorNum = num;
+		floorAbove = null;
+		floorBelow = null;
 	}
 	
 	// a room of a random type is created
@@ -29,8 +41,9 @@ public class Floor {
 		return CreateRoom(roomTypes[randRoom], dir);
 	}
 	
-	public Room CreateFirstRoom(String roomType, String dir) {
+	public Room CreateFirstRoom(String roomType) {
 		Room ret = null;
+		String dir = null;
 		
 		switch(roomType) // Factory Design-esque instantiation
 		{
@@ -53,15 +66,6 @@ public class Floor {
 	public Room CreateRoom(String roomType, String dir)
 	{
 		Room ret = null;
-		Room oldRoom = FindRoom(dir);	// check to see if a room already exists at these coordinates
-		
-		if(oldRoom != null)
-		{
-			rooms.remove(oldRoom);
-			rooms.addFirst(oldRoom); 	// move the room to the front of the LinkedList
-			currentRoom = oldRoom;
-			return oldRoom;
-		}
 		
 		switch(roomType) // Factory Design-esque instantiation
 		{
@@ -100,11 +104,9 @@ public class Floor {
 	
 	public Room FindRoom(int x, int y) // using coordinates
 	{
-		EmptyRoom newRoom = new EmptyRoom(x, y, null, this);
-
 		for(int i = 0; i < rooms.size(); i++)
 		{
-			if(rooms.get(i).isEqual(newRoom))
+			if(rooms.get(i).getCoord().getX() == x && rooms.get(i).getCoord().getY() == y)
 			{
 				return rooms.get(i);
 			}
@@ -126,7 +128,23 @@ public class Floor {
 		return null;
 	}
 	
-	// getters
+	// getters and setters
+	
+	public Floor getFloorAbove() {
+		return floorAbove;
+	}
+
+	public void setFloorAbove(Floor floorAbove) {
+		this.floorAbove = floorAbove;
+	}
+
+	public Floor getFloorBelow() {
+		return floorBelow;
+	}
+
+	public void setFloorBelow(Floor floorBelow) {
+		this.floorBelow = floorBelow;
+	}
 	
 	public Room GetPreviousRoom() // called before the new room is added to the linked list
 	{
@@ -141,6 +159,10 @@ public class Floor {
 	
 	public Room getCurrentRoom() {
 		return currentRoom;
+	}
+	
+	public void setCurrentRoom(Room currentRoom) {
+		this.currentRoom = currentRoom;
 	}
 
 	public LinkedList<Room> getRooms() {

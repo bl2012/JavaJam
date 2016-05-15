@@ -23,32 +23,52 @@ public class Player {
 	
 	public void GoNorth()
 	{
-		currentFloor.CreateRandomRoom("north");
-		currentCoord = currentFloor.getCurrentRoom().coord;
+		if(currentFloor.getCurrentRoom().north == null)
+			currentFloor.CreateRandomRoom("north");
+		else
+		{
+			currentFloor.setCurrentRoom(currentFloor.getCurrentRoom().north);
+		}
+		
 		System.out.print("Move North	");
 		EnviroUpdate();
 	}
 	
 	public void GoSouth()
 	{
-		currentFloor.CreateRandomRoom("south");
-		currentCoord = currentFloor.getCurrentRoom().coord;
+		if(currentFloor.getCurrentRoom().south == null)
+			currentFloor.CreateRandomRoom("south");
+		else
+		{
+			currentFloor.setCurrentRoom(currentFloor.getCurrentRoom().south);
+		}
+		
 		System.out.print("Move South	");
 		EnviroUpdate();
 	}
 	
 	public void GoEast()
 	{
-		currentFloor.CreateRandomRoom("east");
-		currentCoord = currentFloor.getCurrentRoom().coord;
+		if(currentFloor.getCurrentRoom().east == null)
+			currentFloor.CreateRandomRoom("east");
+		else
+		{
+			currentFloor.setCurrentRoom(currentFloor.getCurrentRoom().east);
+		}
+		
 		System.out.print("Move East	");
 		EnviroUpdate();
 	}
 	
 	public void GoWest()
 	{
-		currentFloor.CreateRandomRoom("west");
-		currentCoord = currentFloor.getCurrentRoom().coord;
+		if(currentFloor.getCurrentRoom().west == null)
+			currentFloor.CreateRandomRoom("west");
+		else
+		{
+			currentFloor.setCurrentRoom(currentFloor.getCurrentRoom().west);
+		}
+		
 		System.out.print("Move West	");
 		EnviroUpdate();
 	}
@@ -57,19 +77,32 @@ public class Player {
 	
 	public void ClimbUp() // a new floor is created
 	{
-		Floor newFloor = new Floor(++numFloors);
-		currentFloor = newFloor;
-		floors.addFirst(newFloor);
-		System.out.print("New ");
+		if(currentFloor.getFloorAbove() == null)
+		{
+			Floor newFloor = new Floor(++numFloors);
+			
+			currentFloor.setFloorAbove(newFloor);
+			newFloor.setFloorBelow(currentFloor);
+			
+			currentFloor = newFloor;
+			floors.addFirst(newFloor);
+			System.out.print("New ");
+		}
+		else
+		{
+			currentFloor = currentFloor.getFloorAbove();
+		}
+
 		EnviroUpdate();
 	}
 	
 	public void ClimbDown() // the player moves down to the previous floor
 	{
-		Floor newFloor = floors.get(1);
-		floors.remove(newFloor);
-		floors.addFirst(newFloor); // move this floor to the front of the linked list
-		currentFloor = newFloor;
+		if(currentFloor.getFloorBelow() == null)
+			System.out.println("You can't climb down. That floor doesn't exist");
+		else
+			currentFloor = currentFloor.getFloorBelow();
+		
 		EnviroUpdate();
 	}
 	
@@ -89,8 +122,11 @@ public class Player {
 	// this method is called after any room change
 	
 	public void EnviroUpdate()
-	{
-		//System.out.println(currentFloor.getCurrentRoom().getDescription());
+	{			
+		currentFloor.getRooms().remove(currentFloor.getCurrentRoom());
+		currentFloor.getRooms().addFirst(currentFloor.getCurrentRoom());
+		currentCoord = currentFloor.getCurrentRoom().coord;
+
 		
 		System.out.print("Floor: " + currentFloor.getFloorNum() + "	");
 		System.out.println("Room : " + currentFloor.getCurrentRoom().getCoord().getX() + ", " + currentFloor.getCurrentRoom().getCoord().getY());

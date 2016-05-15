@@ -45,37 +45,54 @@ public abstract class Room{
 			floor.GetPreviousRoom().bIsVisited = true;
 		}
 		
-		// new rooms start with null pointers...
-		north = null;
-		south = null;
-		east = null;
-		west = null;
-				
-		// except in the direction the player has come from
-		if(dir == null) return;
+		// set direction pointers
+		Room temp = null;
 		
-		switch(dir)
+			//north
+		temp = floor.FindRoom(coord.getX(), coord.getY() - 1);
+		if(temp != null)
 		{
-		case "north":
-			south = floor.GetPreviousRoom();
-			break;
-		case "south":
-			north = floor.GetPreviousRoom();
-			break;
-		case "east":
-			west = floor.GetPreviousRoom();
-			break;
-		case "west":
-			east = floor.GetPreviousRoom();
-			break;
+			north = temp;
+			north.setSouth(this);	
 		}
+		else north = null;
+		
+			// south
+		temp = floor.FindRoom(coord.getX(), coord.getY() + 1);
+		if(temp != null)
+		{
+			south = temp;
+			south.setNorth(this);
+		}
+		else south = null;
+
+			// east
+		temp = floor.FindRoom(coord.getX() + 1, coord.getY());
+
+		if(temp != null)
+		{
+			east = temp;
+			east.setWest(this);
+		}
+		else east = null;
+		
+			// west
+		temp = floor.FindRoom(coord.getX() - 1, coord.getY());
+		
+		if(temp != null)
+		{
+			west = temp;	
+			west.setEast(this);
+		}
+		else west = null;
+
 
 	}
 	
 	Coordinates setCoordinates(int prevX, int prevY, String dir)
 	{
 		if(dir == null) {
-			return new Coordinates(0, 0);
+			return new Coordinates(prevX, prevY);
 		}
 		
 		switch(dir)
@@ -135,6 +152,38 @@ public abstract class Room{
 	
 	public String getType() {
 		return type;
+	}
+	
+	public Room getNorth() {
+		return north;
+	}
+
+	public void setNorth(Room north) {
+		this.north = north;
+	}
+
+	public Room getSouth() {
+		return south;
+	}
+
+	public void setSouth(Room south) {
+		this.south = south;
+	}
+
+	public Room getEast() {
+		return east;
+	}
+
+	public void setEast(Room east) {
+		this.east = east;
+	}
+
+	public Room getWest() {
+		return west;
+	}
+
+	public void setWest(Room west) {
+		this.west = west;
 	}
 }
 
