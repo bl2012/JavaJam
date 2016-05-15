@@ -25,7 +25,7 @@ public class Player {
 	{
 		currentFloor.CreateRandomRoom("north");
 		currentCoord = currentFloor.getCurrentRoom().coord;
-		System.out.println("Move North");
+		System.out.print("Move North	");
 		EnviroUpdate();
 	}
 	
@@ -33,7 +33,7 @@ public class Player {
 	{
 		currentFloor.CreateRandomRoom("south");
 		currentCoord = currentFloor.getCurrentRoom().coord;
-		System.out.println("Move South");
+		System.out.print("Move South	");
 		EnviroUpdate();
 	}
 	
@@ -41,7 +41,7 @@ public class Player {
 	{
 		currentFloor.CreateRandomRoom("east");
 		currentCoord = currentFloor.getCurrentRoom().coord;
-		System.out.println("Move East");
+		System.out.print("Move East	");
 		EnviroUpdate();
 	}
 	
@@ -49,7 +49,7 @@ public class Player {
 	{
 		currentFloor.CreateRandomRoom("west");
 		currentCoord = currentFloor.getCurrentRoom().coord;
-		System.out.println("Move West");
+		System.out.print("Move West	");
 		EnviroUpdate();
 	}
 	

@@ -7,6 +7,7 @@ public class EmptyRoom extends Room{
 		
 		newRoomDescription = "This room is eerily empty";
 		visitedDescription = "The eerie emptiness of this room is awfully familiar";
+		type = "empty";
 	}
 
 }

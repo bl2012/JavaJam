@@ -7,6 +7,7 @@ public class EnemyRoom extends Room{
 
 		newRoomDescription = "There's an enemy in this room";
 		visitedDescription = "A dead enemy lay as flat and cold as the ground";
+		type = "enemy";
 	}
 
 }
