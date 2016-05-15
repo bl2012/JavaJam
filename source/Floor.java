@@ -23,7 +23,7 @@ public class Floor {
 	// a room of a random type is created
 	public Room CreateRandomRoom(String dir)
 	{
-		int randRoom = 2;
+		int randRoom = 1;
 		
 		return CreateRoom(roomTypes[randRoom], dir);
 	}
@@ -35,10 +35,13 @@ public class Floor {
 		{
 		case "LadderRoom":
 			ret = new LadderRoom(0, 0, dir, this);
+			break;
 		case "EnemyRoom":
 			ret = new EnemyRoom(0, 0, dir, this);
+			break;
 		case "EmptyRoom":
 			ret = new EmptyRoom(0, 0, dir, this);
+			break;
 		}
 		
 		rooms.addFirst(ret);
@@ -63,10 +66,13 @@ public class Floor {
 		{
 		case "LadderRoom":
 			ret = new LadderRoom(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir, this);
+			break;
 		case "EnemyRoom":
 			ret = new EnemyRoom(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir, this);
+			break;
 		case "EmptyRoom":
 			ret = new EmptyRoom(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir, this);
+			break;
 		}
 		
 		rooms.addFirst(ret);

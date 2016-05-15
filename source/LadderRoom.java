@@ -6,7 +6,8 @@ public class LadderRoom extends Room{
 		super(prevX, prevY, dir, floor);
 		
 		bHasUpLadder = (bHasDownLadder) ? false : true;
-		description = "There's a ladder in this room";
+		newRoomDescription = "There's a ladder in this room";
+		visitedDescription = "You've seen that ladder before";
 	}
 
 }
