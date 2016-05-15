@@ -1,3 +1,4 @@
+package source;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,6 +24,7 @@ import javafx.collections.FXCollections;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.shape.*;
+import java.util.LinkedList;
 
 
 /**
@@ -33,19 +35,25 @@ import javafx.scene.shape.*;
 
 public class InfiniTower extends Application {
 
+	Player player;
+	BorderPane primaryPane;
 	public void start(Stage primaryStage) {
 
+		player = new Player();
 		//The topmost pane where all subsequent panes will go
-		BorderPane primaryPane = new BorderPane();
+		primaryPane = new BorderPane();
 
 		// this is just a little square that goes in the center of the 
 		// "map" display
+
 		Rectangle centerSquare = new Rectangle();
 		//centerSquare.setX(200);
 		//centerSquare.setY(200);
 		centerSquare.setWidth(20);
 		centerSquare.setHeight(20);
 		primaryPane.setCenter(centerSquare);
+
+		updateMap(player.getCurrentFloor());
 
 		// this "compass" pane holds the compass buttons that are stored in 
 		// a gridPane
@@ -62,8 +70,24 @@ public class InfiniTower extends Application {
 		compassBtns.getChildren().addAll(northBtn, southBtn, eastBtn, westBtn);
 		compass.setCenter(compassBtns);
 
-		
 		primaryPane.setBottom(compass);
+
+		northBtn.setOnAction(e -> {
+			player.GoNorth();
+			updateMap(player.getCurrentFloor());
+		});
+		southBtn.setOnAction(e -> {
+			player.GoSouth();
+			updateMap(player.getCurrentFloor());
+		});
+		eastBtn.setOnAction(e -> {
+			player.GoEast();
+			updateMap(player.getCurrentFloor());
+		});
+		westBtn.setOnAction(e -> {
+			player.GoWest();
+			updateMap(player.getCurrentFloor());
+		});
 
 		Scene scene = new Scene(primaryPane, 500, 500);	
 		
@@ -74,5 +98,32 @@ public class InfiniTower extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	public void updateMap(Floor f) {
+		//int roomNum = 0;
+		int currXCoord = player.getCurrentCoord().getX();
+		int currYCoord = player.getCurrentCoord().getY();
+		LinkedList<Room> rooms = f.getRooms();
+		Pane map = new Pane();
+		for (int i = 0; i < rooms.size(); i++) {
+			Room room = rooms.get(i);
+
+			int roomXCoord = room.getCoord().getX();
+			int roomYCoord = room.getCoord().getY();
+			int relXCoord = roomXCoord - currXCoord;
+			int relYCoord = roomYCoord - currYCoord;
+			//Rectangle r = new Rectangle();
+			Rectangle mapSquare = new Rectangle();
+	
+			mapSquare.setWidth(20);
+			mapSquare.setHeight(20);
+			mapSquare.setX(250 + relXCoord * 21);
+			mapSquare.setY(250 +relYCoord * 21);
+
+			map.getChildren().addAll(mapSquare);
+			
+		}
+		primaryPane.setCenter(map);
 	}
 }

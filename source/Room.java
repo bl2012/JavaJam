@@ -30,6 +30,18 @@ public abstract class Room{
 		west = null;
 		
 		// except in the direction the player has come from
+		if(dir == null)
+		{
+			// set the new coordinates
+			coord = (setCoordinates(prevX, prevY, dir));
+			
+			// visited will be set to true when the player leaves the room.
+			// this allows us to check if the room has previously been visited
+			// thus eliminating duplication of rooms at the same coordinates
+			bIsVisited = false;
+			return;
+		}
+		
 		switch(dir)
 		{
 		case "north":
@@ -52,6 +64,10 @@ public abstract class Room{
 	
 	Coordinates setCoordinates(int prevX, int prevY, String dir)
 	{
+		if(dir == null) {
+			return new Coordinates(0, 0);
+		}
+		
 		switch(dir)
 		{
 		case "north":
