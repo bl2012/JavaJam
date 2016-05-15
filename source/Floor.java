@@ -11,7 +11,8 @@ public class Floor {
 	
 	public Floor(int num)
 	{
-		currentRoom = CreateRoom("EmptyRoom", null);
+		//currentRoom = CreateRoom("EmptyRoom", null);
+		currentRoom = CreateFirstRoom("LadderRoom", null);
 		floorNum = num;
 	}
 	
@@ -23,6 +24,21 @@ public class Floor {
 		return CreateRoom(roomTypes[randRoom], dir);
 	}
 	
+	public Room CreateFirstRoom(String roomType, String dir) {
+		Room ret = null;
+		switch(roomType) // Factory Design-esque instantiation
+		{
+		case "LadderRoom":
+			ret = new LadderRoom(0, 0, dir, this);
+		case "EnemyRoom":
+			ret = new EnemyRoom(0, 0, dir, this);
+		case "EmptyRoom":
+			ret = new EmptyRoom(0, 0, dir, this);
+		}
+		rooms.addFirst(ret);
+		currentRoom = ret;
+		return ret;
+	}
 	// if a room does not exist in the desired direction, a new one is created
 	public Room CreateRoom(String roomType, String dir)
 	{
@@ -56,9 +72,14 @@ public class Floor {
 	
 	public Room FindRoom(String dir) // using a direction
 	{
-		EmptyRoom newRoom = new EmptyRoom(0, 0, null, null);
-		newRoom.setCoordinates(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir);
+		EmptyRoom newRoom = new EmptyRoom(0, 0, dir, this);
 		
+		try {
+		newRoom.setCoordinates(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir);
+		}
+		catch (NullPointerException itsNUllForSomeReason){
+			System.out.println("it's null, yo");
+		}
 		for(int i = 0; i < rooms.size(); i++)
 		{
 			if(currentRoom.isEqual(newRoom))
