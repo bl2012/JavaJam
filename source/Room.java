@@ -36,6 +36,9 @@ public abstract class Room{
 		newRoomDescription = "This room is dank, yo.";
 		visitedDescription = "This room is familiar.";
 		
+		// set the type to default. This is be overwritten in subconstructors
+		type = "default";
+		
 		if(floor.GetPreviousRoom() != null)
 		{
 			//System.out.println("Room " + floor.GetPreviousRoom().getCoord().getX() + ", " + floor.GetPreviousRoom().getCoord().getY() + " has been visited");
@@ -127,7 +130,11 @@ public abstract class Room{
 
 	public String getDescription() {
 		if(bIsVisited) return visitedDescription;
-		else return newRoomDescription;
+		else 		   return newRoomDescription;
+	}
+	
+	public String getType() {
+		return type;
 	}
 }
 

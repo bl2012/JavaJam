@@ -8,6 +8,7 @@ public class LadderRoom extends Room{
 		bHasUpLadder = (bHasDownLadder) ? false : true;
 		newRoomDescription = "There's a ladder in this room";
 		visitedDescription = "You've seen that ladder before";
+		type = "ladder";
 	}
 
 }
