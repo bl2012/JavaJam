@@ -125,7 +125,7 @@ public class InfiniTower extends Application {
 			mapSquare.setHeight(20);
 			mapSquare.setX(250 + relXCoord * 21);
 			mapSquare.setY(250 +relYCoord * 21);
-			System.out.println("Square: " + relXCoord + "," + relYCoord + " created");
+			//System.out.println("Square: " + relXCoord + "," + relYCoord + " created");
 			map.getChildren().addAll(mapSquare);
 			//primaryPane.setCenter(map);
 		}
