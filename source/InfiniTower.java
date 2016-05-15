@@ -132,6 +132,20 @@ public class InfiniTower extends Application {
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
 		});
+		climbUp.setOnAction(e -> {
+			player.ClimbUp();
+			updateMap(player.getCurrentFloor());
+			updateDescription(player.getCurrentFloor());
+		});
+		climbDown.setOnAction(e -> {
+			player.ClimbDown();
+			updateMap(player.getCurrentFloor());
+			updateDescription(player.getCurrentFloor());
+		});
+		look.setOnAction(e -> {
+			player.Look();
+			updateDescription(player.getCurrentFloor());
+		});
 
 		Scene scene = new Scene(primaryPane, 500, 500);	
 		

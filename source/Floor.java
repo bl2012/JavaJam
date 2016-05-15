@@ -15,6 +15,7 @@ public class Floor {
 
 	private LinkedList<Room> rooms = new LinkedList<Room>();
 	
+	private boolean bHasLadderUp;
 	
 	Random rand = new Random();
 	
@@ -26,8 +27,12 @@ public class Floor {
 			currentRoom = CreateFirstRoom("EmptyRoom");
 		}
 		else // otherwise there will be a down ladder in the room
-			currentRoom = CreateRoom("LadderRoom", null);
+		{
+			currentRoom = CreateFirstRoom("LadderRoom");
+			currentRoom.setLadderUp(false);
+		}
 		
+		bHasLadderUp = false;
 		floorNum = num;
 		floorAbove = null;
 		floorBelow = null;
@@ -37,6 +42,11 @@ public class Floor {
 	public Room CreateRandomRoom(String dir)
 	{
 		int randRoom = rand.nextInt(3);
+		
+		while(bHasLadderUp && (roomTypes[randRoom] == "LadderRoom"))
+		{
+			randRoom = rand.nextInt(3);
+		}
 		
 		return CreateRoom(roomTypes[randRoom], dir);
 	}
@@ -71,6 +81,8 @@ public class Floor {
 		{
 		case "LadderRoom":
 			ret = new LadderRoom(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir, this);
+			ret.setLadderUp(true);
+			bHasLadderUp = true;
 			break;
 		case "EnemyRoom":
 			ret = new EnemyRoom(currentRoom.getCoord().getX(), currentRoom.getCoord().getY(), dir, this);

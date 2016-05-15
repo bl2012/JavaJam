@@ -77,6 +77,12 @@ public class Player {
 	
 	public void ClimbUp() // a new floor is created
 	{
+		
+		if(!currentFloor.getCurrentRoom().getLadderGoesUp())
+		{
+			return;
+		}
+		
 		if(currentFloor.getFloorAbove() == null)
 		{
 			Floor newFloor = new Floor(++numFloors);
@@ -98,6 +104,11 @@ public class Player {
 	
 	public void ClimbDown() // the player moves down to the previous floor
 	{
+		if(!currentFloor.getCurrentRoom().getLadderGoesDown())
+		{
+			return;
+		}
+		
 		if(currentFloor.getFloorBelow() == null)
 			System.out.println("You can't climb down. That floor doesn't exist");
 		else
