@@ -71,9 +71,9 @@ public abstract class Room{
 		switch(dir)
 		{
 		case "north":
-			return new Coordinates(prevX, prevY + 1);
-		case "south":
 			return new Coordinates(prevX, prevY - 1);
+		case "south":
+			return new Coordinates(prevX, prevY + 1);
 		case "east":
 			return new Coordinates(prevX + 1, prevY);
 		case "west":

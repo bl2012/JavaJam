@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
 //import javafx.scene.layout.Pane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -106,7 +107,7 @@ public class InfiniTower extends Application {
 		int currYCoord = player.getCurrentCoord().getY();
 		LinkedList<Room> rooms = f.getRooms();
 		Pane map = new Pane();
-		for (int i = 0; i < rooms.size(); i++) {
+		for (int i = rooms.size()-1; i >= 0; i--) {
 			Room room = rooms.get(i);
 
 			int roomXCoord = room.getCoord().getX();
@@ -115,14 +116,18 @@ public class InfiniTower extends Application {
 			int relYCoord = roomYCoord - currYCoord;
 			//Rectangle r = new Rectangle();
 			Rectangle mapSquare = new Rectangle();
-	
+			
+			if(i == 0) {
+				mapSquare.setFill(Color.BLUE);
+			}
+			
 			mapSquare.setWidth(20);
 			mapSquare.setHeight(20);
 			mapSquare.setX(250 + relXCoord * 21);
 			mapSquare.setY(250 +relYCoord * 21);
-
+			System.out.println("Square: " + relXCoord + "," + relYCoord + " created");
 			map.getChildren().addAll(mapSquare);
-			
+			//primaryPane.setCenter(map);
 		}
 		primaryPane.setCenter(map);
 	}

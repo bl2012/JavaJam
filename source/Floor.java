@@ -13,10 +13,10 @@ public class Floor {
 	{
 		if(num == 0) // if this is the first floor created, the initial room will be empty
 		{
-			currentRoom = CreateRoom("EmptyRoom", null);
+			currentRoom = CreateFirstRoom("EmptyRoom", null);
 		}
 		else // otherwise there will be a down ladder in the room
-			currentRoom = CreateFirstRoom("LadderRoom", null);
+			currentRoom = CreateRoom("LadderRoom", null);
 		floorNum = num;
 	}
 	
