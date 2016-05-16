@@ -27,8 +27,24 @@ public class EnemyRoom extends Room{
 		typeText = enemy.getDescription();
 		HPtext = " It has " + enemy.getHp() + " health. ";
 		
+		if(!overrideDisplayed)
+		{
+			overrideDisplayed = true;
+			
+			return(overrideDescription());
+
+		}
+		
 		if(!enemy.isDead()) return new String(newRoomDescription + typeText + HPtext + otherDescription);
-		else return new String(visitedDescription + otherDescription);
+		else return new String(otherDescription + visitedDescription);
+	}
+	
+	public String overrideDescription()
+	{
+		String HPtext = " It has " + enemy.getHp() + " health. ";
+				
+		if(!enemy.isDead()) return new String(otherDescription + HPtext);
+		else return new String(otherDescription);
 	}
 	
 	private Enemy RandEnemy()
