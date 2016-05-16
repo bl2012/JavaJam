@@ -10,8 +10,6 @@ public class Player {
 	private int numFloors;
 	private int maxHP;
 	private int currentHP;
-	private boolean dirButtonsLocked;
-	private boolean climbButtonsLocked;
 	
 	// when player is created, they are put on a new floor
 	public Player()
@@ -69,7 +67,6 @@ public class Player {
 		}
 		
 		System.out.println("Move North	");
-		//EnviroUpdate();
 	}
 	
 	public void GoSouth()
@@ -82,7 +79,6 @@ public class Player {
 		}
 		
 		System.out.println("Move South	");
-		//EnviroUpdate();
 	}
 	
 	public void GoEast()
@@ -95,7 +91,6 @@ public class Player {
 		}
 		
 		System.out.println("Move East	");
-		//EnviroUpdate();
 	}
 	
 	public void GoWest()
@@ -108,7 +103,6 @@ public class Player {
 		}
 		
 		System.out.println("Move West	");
-		//EnviroUpdate();
 	}
 	
 	// these methods move the player between floors
@@ -162,7 +156,6 @@ public class Player {
 			currentFloor = currentFloor.getFloorAbove();
 		}
 
-		//EnviroUpdate();
 	}
 	
 	public void ClimbDown() // the player moves down to the previous floor
@@ -177,7 +170,6 @@ public class Player {
 		else
 			currentFloor = currentFloor.getFloorBelow();
 		
-		//EnviroUpdate();
 	}
 	
 	// these methods control actions in combat
@@ -197,18 +189,40 @@ public class Player {
 		switch(action)
 		{
 		case "attack":
-			Attack(100);
-			message = new String("You attack the enemy. ");
+			if(currentFloor.getCurrentRoom().getEnemy().isDead())
+			{
+				message = new String("You attack the enemy's lifeless body. "
+						+ "There is a sickening squish as your sword makes contact with so much dead tissue. ");
+			}
+			else{
+				Attack(100);
+				String tempStr = (currentFloor.getCurrentRoom().getEnemy().isDead()) ? "It slumps to the ground, lifeless. " : "It recovers"
+						+ "and prepares to attack. ";
+				message = new String("You attack the enemy. " + tempStr);
+				
+			}
+			
+			currentFloor.getCurrentRoom().setOverrideDisplayed(false);
+			
 			break;
 		case "flee":
-			Flee();
-			message = new String("You run away. ");
+			if(currentFloor.getCurrentRoom().getEnemy().isDead())
+			{
+				message = new String("The enemy is dead. There is no need to run away.");
+				currentFloor.getCurrentRoom().setOverrideDisplayed(false);
+
+			}
+			else{
+				Flee();
+				message = new String("You run away. ");
+				EnviroUpdate();
+			}
 			break;
 		default:
 			break;
 		}	
 		
-		EnviroUpdate();
+		currentFloor.getCurrentRoom().setOtherDescription(message);
 	}
 	
 	public void Attack(int dmg)
@@ -221,13 +235,8 @@ public class Player {
 		}
 		else return;
 		
-		try{
-			if(enemy.isDead()) return;
-		}
-		catch(NullPointerException ex)
-		{
-			System.out.println("Something is Null, bruh");
-		}
+		if(enemy.isDead()) return;
+
 		
 		enemy.setHp(enemy.getHp() - dmg);
 		if(enemy.getHp() <= 0) enemy.setDead(true);

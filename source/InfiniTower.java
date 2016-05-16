@@ -149,6 +149,7 @@ public class InfiniTower extends Application {
 		}
 		primaryPane.setCenter(map);
 	}
+	
 	public void updateDescription(Floor f) {
 		primaryPane.getRoomInfo().setText(f.getCurrentRoom().getDescription());
 	}

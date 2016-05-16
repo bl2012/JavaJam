@@ -13,7 +13,7 @@ public class EmptyRoom extends Room{
 	// getters and setters
 	
 	public String getDescription() {
-		if(bIsVisited) return (new String(visitedDescription + otherDescription));
+		if(bIsVisited) return (new String(otherDescription + visitedDescription));
 		else 		   return (new String(newRoomDescription + otherDescription));
 	}
 	

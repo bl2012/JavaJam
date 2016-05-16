@@ -10,6 +10,7 @@ public abstract class Room{
 	
 	// booleans for checking various states
 	boolean bIsVisited;
+	boolean overrideDisplayed;
 
 	Enemy enemy;
 	
@@ -32,6 +33,7 @@ public abstract class Room{
 		// this allows us to check if the room has previously been visited
 		// thus eliminating duplication of rooms at the same coordinates
 		bIsVisited = false;
+		overrideDisplayed = true;
 		
 		// each room should have a description, describing it to the player
 		newRoomDescription = "This room is dank, yo.";
@@ -153,13 +155,26 @@ public abstract class Room{
 	}
 	
 	String getDescription() {
-		if(bIsVisited) return visitedDescription;
+		if(bIsVisited) return new String(otherDescription + visitedDescription);
 		else 		   return newRoomDescription;
 	}
 	
 	void setOtherDescription(String str)
 	{
 		return;
+	}
+	
+	String overrideDescription()
+	{
+		return null;
+	}
+	
+	public boolean isOverrideDisplayed() {
+		return overrideDisplayed;
+	}
+
+	public void setOverrideDisplayed(boolean overrideDisplayed) {
+		this.overrideDisplayed = overrideDisplayed;
 	}
 	
 	Enemy getEnemy()
