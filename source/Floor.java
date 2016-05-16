@@ -17,7 +17,7 @@ public class Floor {
 	
 	private boolean bHasLadderUp;
 	
-	Random rand = new Random();
+	private Random rand = new Random();
 	
 	
 	public Floor(int num)
