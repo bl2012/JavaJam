@@ -100,6 +100,7 @@ public class InfiniTower extends Application {
 		playerActions.getChildren().add(fleeBtn);
 		fleeBtn.setOnAction(e -> {
 			player.Flee();
+			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
 		});
 		
