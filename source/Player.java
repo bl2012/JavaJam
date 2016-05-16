@@ -140,7 +140,7 @@ public class Player {
 		}
 		
 		enemy.setHp(enemy.getHp() - dmg);
-		if(enemy.getHp() <= 0) enemy.dead = true;
+		if(enemy.getHp() <= 0) enemy.setDead(true);
 		
 	}
 	
