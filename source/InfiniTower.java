@@ -87,6 +87,22 @@ public class InfiniTower extends Application {
 			updateDescription(player.getCurrentFloor());
 		});
 		
+		//**********************Attack/Flee ******************************
+		Button attackBtn = new Button("ATTACK!");
+		GridPane.setConstraints(attackBtn, 0, 3);
+		playerActions.getChildren().add(attackBtn);
+		attackBtn.setOnAction(e -> {
+			player.Attack();
+			updateDescription(player.getCurrentFloor());
+		});
+		Button fleeBtn = new Button("FLEE!");
+		GridPane.setConstraints(fleeBtn, 0, 4);
+		playerActions.getChildren().add(fleeBtn);
+		fleeBtn.setOnAction(e -> {
+			player.Flee();
+			updateDescription(player.getCurrentFloor());
+		});
+		
 		
 		// this "compass" pane holds the compass buttons that are stored in 
 		// a gridPane
@@ -187,11 +203,13 @@ public class InfiniTower extends Application {
 			
 			mapSquare.setWidth(20);
 			mapSquare.setHeight(20);
-			mapSquare.setX(170 + relXCoord * 23);
+			mapSquare.setX(190 + relXCoord * 23);
 			mapSquare.setY(200 +relYCoord * 23);
 			//System.out.println("Square: " + relXCoord + "," + relYCoord + " created");
-			map.getChildren().addAll(mapSquare);
-			//primaryPane.setCenter(map);
+			if(Math.abs(relYCoord)<=8 && Math.abs(relXCoord)<=8){
+				map.getChildren().addAll(mapSquare);
+				//primaryPane.setCenter(map);
+			}
 		}
 		primaryPane.setCenter(map);
 	}
