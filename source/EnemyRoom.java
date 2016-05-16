@@ -5,6 +5,7 @@ import java.util.Random;
 public class EnemyRoom extends Room{
 
 	Enemy enemy;
+
 	private Random rand = new Random();
 	private String[] enemyTypes = new String[]{"bigEnemy", "smallEnemy"};
 	
@@ -55,6 +56,14 @@ public class EnemyRoom extends Room{
 			return null;
 		}
 		
+	}
+	
+	public Enemy getEnemy() {
+		return enemy;
+	}
+
+	public void setEnemy(Enemy enemy) {
+		this.enemy = enemy;
 	}
 			
 
