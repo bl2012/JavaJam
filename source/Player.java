@@ -68,7 +68,7 @@ public class Player {
 			currentFloor.setCurrentRoom(currentFloor.getCurrentRoom().north);
 		}
 		
-		System.out.print("Move North	");
+		System.out.println("Move North	");
 		//EnviroUpdate();
 	}
 	
@@ -81,7 +81,7 @@ public class Player {
 			currentFloor.setCurrentRoom(currentFloor.getCurrentRoom().south);
 		}
 		
-		System.out.print("Move South	");
+		System.out.println("Move South	");
 		//EnviroUpdate();
 	}
 	
@@ -94,7 +94,7 @@ public class Player {
 			currentFloor.setCurrentRoom(currentFloor.getCurrentRoom().east);
 		}
 		
-		System.out.print("Move East	");
+		System.out.println("Move East	");
 		//EnviroUpdate();
 	}
 	
@@ -107,7 +107,7 @@ public class Player {
 			currentFloor.setCurrentRoom(currentFloor.getCurrentRoom().west);
 		}
 		
-		System.out.print("Move West	");
+		System.out.println("Move West	");
 		//EnviroUpdate();
 	}
 	
@@ -203,12 +203,12 @@ public class Player {
 		case "flee":
 			Flee();
 			message = new String("You run away. ");
-			EnviroUpdate();
 			break;
 		default:
 			break;
 		}	
 		
+		EnviroUpdate();
 	}
 	
 	public void Attack(int dmg)
