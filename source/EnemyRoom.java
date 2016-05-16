@@ -27,7 +27,7 @@ public class EnemyRoom extends Room{
 		typeText = enemy.getDescription();
 		HPtext = " It has " + enemy.getHp() + " health. ";
 		
-		if(!bIsVisited) return new String(newRoomDescription + typeText + HPtext);
+		if(!enemy.dead) return new String(newRoomDescription + typeText + HPtext);
 		else return new String(visitedDescription);
 	}
 	
