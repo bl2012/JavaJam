@@ -191,6 +191,8 @@ public class Player {
 
 	public void Flee() {
 		// TODO Auto-generated method stub
+		currentFloor.setCurrentRoom(currentFloor.getRooms().get(1));
+		EnviroUpdate();
 		
 	}
 }
