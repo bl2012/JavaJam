@@ -156,4 +156,9 @@ public class Player {
 	public LinkedList<Floor> getFloors() {
 		return floors;
 	}
+
+	public void Flee() {
+		// TODO Auto-generated method stub
+		
+	}
 }
