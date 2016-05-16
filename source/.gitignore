@@ -6,3 +6,6 @@
 /Room.class
 /EmptyRoom.class
 /InfiniTower.class
+/Enemy.class
+/SmallEnemy.class
+/BigEnemy.class
