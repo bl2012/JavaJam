@@ -10,10 +10,14 @@ public class Player {
 	private int numFloors;
 	private int maxHP;
 	private int currentHP;
+	private boolean dirButtonsLocked;
+	private boolean climbButtonsLocked;
 	
 	// when player is created, they are put on a new floor
 	public Player()
 	{
+		maxHP = 100;
+		currentHP = maxHP;
 		numFloors = 0;
 		floors = new LinkedList<Floor>();
 		currentFloor = new Floor(numFloors);
@@ -22,6 +26,38 @@ public class Player {
 	}
 	
 	// This series of methods control directional movement
+	
+	public void GoDir(String dir)
+	{		
+		// reset the action-specific text
+		currentFloor.getCurrentRoom().setOtherDescription("");
+		
+		if(currentFloor.getCurrentRoom().getType() == "enemy" && !currentFloor.getCurrentRoom().getEnemy().isDead())
+		{
+			ButtonsLocked("dir");
+			return;
+		}
+		
+		switch(dir)
+		{
+		case "north":
+			GoNorth();
+			break;
+		case "south":
+			GoSouth();
+			break;
+		case "east":
+			GoEast();
+			break;
+		case "west":
+			GoWest();
+			break;
+		default:
+			break;
+		}
+		
+		EnviroUpdate();
+	}
 	
 	public void GoNorth()
 	{
@@ -33,7 +69,7 @@ public class Player {
 		}
 		
 		System.out.print("Move North	");
-		EnviroUpdate();
+		//EnviroUpdate();
 	}
 	
 	public void GoSouth()
@@ -46,7 +82,7 @@ public class Player {
 		}
 		
 		System.out.print("Move South	");
-		EnviroUpdate();
+		//EnviroUpdate();
 	}
 	
 	public void GoEast()
@@ -59,7 +95,7 @@ public class Player {
 		}
 		
 		System.out.print("Move East	");
-		EnviroUpdate();
+		//EnviroUpdate();
 	}
 	
 	public void GoWest()
@@ -72,10 +108,35 @@ public class Player {
 		}
 		
 		System.out.print("Move West	");
-		EnviroUpdate();
+		//EnviroUpdate();
 	}
 	
 	// these methods move the player between floors
+	public void Climb(String dir)
+	{		
+		// reset the action-specific text
+		currentFloor.getCurrentRoom().setOtherDescription("");
+		
+		if(currentFloor.getCurrentRoom().getType() != "ladder")
+		{
+			ButtonsLocked("climb");
+			return;
+		}
+		
+		switch(dir)
+		{
+		case "up":
+			ClimbUp();
+			break;
+		case "down":
+			ClimbDown();
+			break;
+		default:
+			break;
+		}	
+		
+		EnviroUpdate();
+	}
 	
 	public void ClimbUp() // a new floor is created
 	{
@@ -101,7 +162,7 @@ public class Player {
 			currentFloor = currentFloor.getFloorAbove();
 		}
 
-		EnviroUpdate();
+		//EnviroUpdate();
 	}
 	
 	public void ClimbDown() // the player moves down to the previous floor
@@ -116,10 +177,39 @@ public class Player {
 		else
 			currentFloor = currentFloor.getFloorBelow();
 		
-		EnviroUpdate();
+		//EnviroUpdate();
 	}
 	
-	// these methods control actions within a room
+	// these methods control actions in combat
+	
+	public void Combat(String action)
+	{		
+		// reset the action-specific text
+		currentFloor.getCurrentRoom().setOtherDescription("");
+		String message = "";
+		
+		if(currentFloor.getCurrentRoom().getType() != "enemy")
+		{
+			ButtonsLocked("combat");
+			return;
+		}
+		
+		switch(action)
+		{
+		case "attack":
+			Attack(100);
+			message = new String("You attack the enemy. ");
+			break;
+		case "flee":
+			Flee();
+			message = new String("You run away. ");
+			EnviroUpdate();
+			break;
+		default:
+			break;
+		}	
+		
+	}
 	
 	public void Attack(int dmg)
 	{
@@ -144,6 +234,12 @@ public class Player {
 		
 	}
 	
+	public void Flee() {
+		currentFloor.setCurrentRoom(currentFloor.getRooms().get(1));		
+	}
+	
+	// these methods are called within a room
+	
 	public void Look()
 	{
 		
@@ -160,6 +256,28 @@ public class Player {
 		
 		System.out.print("Floor: " + currentFloor.getFloorNum() + "	");
 		System.out.println("Room : " + currentFloor.getCurrentRoom().getCoord().getX() + ", " + currentFloor.getCurrentRoom().getCoord().getY());
+	}
+	
+	public void ButtonsLocked(String buttonType)
+	{		
+		String message = "";
+		
+		switch(buttonType)
+		{
+		case "dir":
+			currentFloor.getCurrentRoom().getEnemy().Attack(this);
+			message = new String("The enemy attacks. You have " + getHp() + " health remaining. ");
+			break;
+		case "climb":
+			message = new String("There isn't a ladder in this room. ");
+			break;
+		case "combat":
+			message = new String("There is no danger here. ");
+		default:
+			break;
+		}
+		
+		currentFloor.getCurrentRoom().setOtherDescription(message);
 	}
 	
 	// getters and setters
@@ -187,12 +305,5 @@ public class Player {
 
 	public LinkedList<Floor> getFloors() {
 		return floors;
-	}
-
-	public void Flee() {
-		// TODO Auto-generated method stub
-		currentFloor.setCurrentRoom(currentFloor.getRooms().get(1));
-		EnviroUpdate();
-		
 	}
 }

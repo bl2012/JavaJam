@@ -20,6 +20,7 @@ public abstract class Room{
 	String type;
 	String newRoomDescription;
 	String visitedDescription;
+	String otherDescription;
 	
 	// constructor
 	public Room(int prevX, int prevY, String dir, Floor floor)
@@ -35,6 +36,7 @@ public abstract class Room{
 		// each room should have a description, describing it to the player
 		newRoomDescription = "This room is dank, yo.";
 		visitedDescription = "This room is familiar.";
+		otherDescription = "";
 		
 		// set the type to default. This is be overwritten in subconstructors
 		type = "default";
@@ -153,6 +155,11 @@ public abstract class Room{
 	String getDescription() {
 		if(bIsVisited) return visitedDescription;
 		else 		   return newRoomDescription;
+	}
+	
+	void setOtherDescription(String str)
+	{
+		return;
 	}
 	
 	Enemy getEnemy()

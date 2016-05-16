@@ -14,7 +14,6 @@ public class EnemyRoom extends Room{
 
 		enemy = RandEnemy();
 		type = "enemy";
-
 		
 		newRoomDescription = "There's an enemy in this room. ";
 		visitedDescription = "A dead enemy lay as flat and cold as the ground. ";
@@ -28,8 +27,8 @@ public class EnemyRoom extends Room{
 		typeText = enemy.getDescription();
 		HPtext = " It has " + enemy.getHp() + " health. ";
 		
-		if(!enemy.isDead()) return new String(newRoomDescription + typeText + HPtext);
-		else return new String(visitedDescription);
+		if(!enemy.isDead()) return new String(newRoomDescription + typeText + HPtext + otherDescription);
+		else return new String(visitedDescription + otherDescription);
 	}
 	
 	private Enemy RandEnemy()
@@ -56,6 +55,13 @@ public class EnemyRoom extends Room{
 			return null;
 		}
 		
+	}
+	
+	// getters and setters
+	
+	public void setOtherDescription(String str)
+	{
+		this.otherDescription = str;
 	}
 	
 	public Enemy getEnemy() {
