@@ -10,8 +10,8 @@ public abstract class Room{
 	
 	// booleans for checking various states
 	boolean bIsVisited;
-	//boolean bHasUpLadder;
-	//boolean bHasDownLadder;
+
+	Enemy enemy;
 	
 	// the coordinates for each room
 	Coordinates coord;
@@ -38,6 +38,7 @@ public abstract class Room{
 		
 		// set the type to default. This is be overwritten in subconstructors
 		type = "default";
+		enemy = null;
 		
 		if(floor.GetPreviousRoom() != null)
 		{
@@ -152,6 +153,13 @@ public abstract class Room{
 	String getDescription() {
 		if(bIsVisited) return visitedDescription;
 		else 		   return newRoomDescription;
+	}
+	
+	Enemy getEnemy()
+	{
+		if(type != "enemy")
+			return null;
+		else return enemy;
 	}
 	
 	public String getType() {

@@ -8,6 +8,8 @@ public class Player {
 	private Floor currentFloor;
 	private LinkedList<Floor> floors;
 	private int numFloors;
+	private int maxHP;
+	private int currentHP;
 	
 	// when player is created, they are put on a new floor
 	public Player()
@@ -119,9 +121,20 @@ public class Player {
 	
 	// these methods control actions within a room
 	
-	public void Attack()
+	public void Attack(int dmg)
 	{
+		Enemy enemy = null;
+				
+		if(currentFloor.getCurrentRoom().getType() == "enemy")
+		{
+			enemy = currentFloor.getCurrentRoom().getEnemy();
+		}
+		else return;
 		
+		if(enemy.dead) return;
+
+		enemy.setHp(enemy.getHp() - dmg);
+		if(enemy.getHp() <= 0) enemy.dead = true;
 		
 	}
 	
@@ -143,7 +156,20 @@ public class Player {
 		System.out.println("Room : " + currentFloor.getCurrentRoom().getCoord().getX() + ", " + currentFloor.getCurrentRoom().getCoord().getY());
 	}
 	
-	// getters 
+	// getters and setters
+	
+	public int getHp() {
+		return currentHP;
+	}
+
+	public void setHp(int hp) {
+		this.currentHP = hp;
+	}
+	
+	public void Heal()
+	{
+		currentHP = maxHP;
+	}
 	
 	public Coordinates getCurrentCoord() {
 		return currentCoord;
