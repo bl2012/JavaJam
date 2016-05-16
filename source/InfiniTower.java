@@ -92,7 +92,7 @@ public class InfiniTower extends Application {
 		GridPane.setConstraints(attackBtn, 0, 3);
 		playerActions.getChildren().add(attackBtn);
 		attackBtn.setOnAction(e -> {
-			player.Attack();
+			player.Attack(100);
 			updateDescription(player.getCurrentFloor());
 		});
 		Button fleeBtn = new Button("FLEE!");

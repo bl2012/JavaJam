@@ -131,8 +131,14 @@ public class Player {
 		}
 		else return;
 		
-		if(enemy.dead) return;
-
+		try{
+			if(enemy.isDead()) return;
+		}
+		catch(NullPointerException ex)
+		{
+			System.out.println("Something is Null, bruh");
+		}
+		
 		enemy.setHp(enemy.getHp() - dmg);
 		if(enemy.getHp() <= 0) enemy.dead = true;
 		
