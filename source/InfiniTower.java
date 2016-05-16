@@ -99,9 +99,18 @@ public class InfiniTower extends Application {
 		GridPane.setConstraints(fleeBtn, 0, 4);
 		playerActions.getChildren().add(fleeBtn);
 		fleeBtn.setOnAction(e -> {
+<<<<<<< HEAD
 			player.Combat("flee");
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
+=======
+			if(player.getCurrentFloor().getCurrentRoom().getType().equals("enemy") &&
+					!(player.getCurrentFloor().getCurrentRoom()).getEnemy().isDead()) {
+				player.Flee();
+				updateMap(player.getCurrentFloor());
+				updateDescription(player.getCurrentFloor());
+			}
+>>>>>>> refs/remotes/origin/master
 		});
 		
 		
@@ -161,7 +170,7 @@ public class InfiniTower extends Application {
 			updateDescription(player.getCurrentFloor());
 		});
 
-		Scene scene = new Scene(primaryPane, 500, 500);	
+		Scene scene = new Scene(primaryPane, 525, 525);	
 		
 		primaryStage.setTitle("InfiniTower");
 		primaryStage.setScene(scene);
@@ -187,7 +196,7 @@ public class InfiniTower extends Application {
 			int relYCoord = roomYCoord - currYCoord;
 			//Rectangle r = new Rectangle();
 			Rectangle mapSquare = new Rectangle();
-			mapSquare.setStrokeWidth(2);
+			mapSquare.setStrokeWidth(3);
 			
 			
 			if(type.equals("ladder")) {
@@ -204,8 +213,8 @@ public class InfiniTower extends Application {
 			
 			mapSquare.setWidth(20);
 			mapSquare.setHeight(20);
-			mapSquare.setX(190 + relXCoord * 23);
-			mapSquare.setY(200 +relYCoord * 23);
+			mapSquare.setX(190 + relXCoord * 25);
+			mapSquare.setY(200 +relYCoord * 25);
 			//System.out.println("Square: " + relXCoord + "," + relYCoord + " created");
 			if(Math.abs(relYCoord)<=8 && Math.abs(relXCoord)<=8){
 				map.getChildren().addAll(mapSquare);
