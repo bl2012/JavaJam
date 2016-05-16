@@ -62,7 +62,7 @@ public class InfiniTower extends Application {
 		//********************Player Actions**************************
 		GridPane playerActions = new GridPane();
 		Button climbUp = new Button("Climb Up");
-		Button climbDown = new Button("Climb Down");
+		Button climbDown = new Button("Climb Down");		
 		Button look = new Button("Look");
 		GridPane.setConstraints(climbUp, 0, 0);
 		GridPane.setConstraints(climbDown, 0, 1);
@@ -72,16 +72,16 @@ public class InfiniTower extends Application {
 		primaryPane.setLeft(playerActions);
 		
 		climbUp.setOnAction(e -> {
-			player.ClimbUp();
+			player.Climb("up");
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
 		});
-		climbUp.setOnAction(e -> {
-			player.ClimbDown();
+		climbDown.setOnAction(e -> {
+			player.Climb("down");
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
 		});
-		climbUp.setOnAction(e -> {
+		look.setOnAction(e -> {
 			player.Look();
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
@@ -92,14 +92,14 @@ public class InfiniTower extends Application {
 		GridPane.setConstraints(attackBtn, 0, 3);
 		playerActions.getChildren().add(attackBtn);
 		attackBtn.setOnAction(e -> {
-			player.Attack(100);
+			player.Combat("attack");
 			updateDescription(player.getCurrentFloor());
 		});
 		Button fleeBtn = new Button("FLEE!");
 		GridPane.setConstraints(fleeBtn, 0, 4);
 		playerActions.getChildren().add(fleeBtn);
 		fleeBtn.setOnAction(e -> {
-			player.Flee();
+			player.Combat("flee");
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
 		});
@@ -127,32 +127,32 @@ public class InfiniTower extends Application {
 		primaryPane.setBottom(compass);
 
 		northBtn.setOnAction(e -> {
-			player.GoNorth();
+			player.GoDir("north");
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
 		});
 		southBtn.setOnAction(e -> {
-			player.GoSouth();
+			player.GoDir("south");
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
 		});
 		eastBtn.setOnAction(e -> {
-			player.GoEast();
+			player.GoDir("east");
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
 		});
 		westBtn.setOnAction(e -> {
-			player.GoWest();
+			player.GoDir("west");
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
 		});
 		climbUp.setOnAction(e -> {
-			player.ClimbUp();
+			player.Climb("up");
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
 		});
 		climbDown.setOnAction(e -> {
-			player.ClimbDown();
+			player.Climb("down");
 			updateMap(player.getCurrentFloor());
 			updateDescription(player.getCurrentFloor());
 		});

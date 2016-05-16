@@ -13,6 +13,8 @@ public class LadderRoom extends Room{
 		type = "ladder";
 	}
 
+	// getters and setters
+	
 	public boolean getLadderGoesUp() {
 		if(ladderUp) return true;
 		else return false;
@@ -40,7 +42,12 @@ public class LadderRoom extends Room{
 			ladderText = " The ladder goes down.";
 		}
 		
-		if(bIsVisited) return (new String(visitedDescription + ladderText));
-		else 		   return (new String(newRoomDescription + ladderText));
+		if(bIsVisited) return (new String(visitedDescription + ladderText + otherDescription));
+		else 		   return (new String(newRoomDescription + ladderText + otherDescription));
+	}
+	
+	public void setOtherDescription(String str)
+	{
+		this.otherDescription = str;
 	}
 }

@@ -3,20 +3,23 @@ package source;
 public abstract class Enemy {
 
 	int hp;
+	int dmg;
 	String description;
 	String type;
+	
 
 	boolean dead;
 	
 	public Enemy()
 	{
 		hp = 50;
+		dmg = 25;
 		dead = false;
 		description =  "Oh noes it's a bad guy!";
 		type = "default";
 	}
 	
-	void Attack(Player player, int dmg)
+	void Attack(Player player)
 	{
 		player.setHp(player.getHp() - dmg);
 	}

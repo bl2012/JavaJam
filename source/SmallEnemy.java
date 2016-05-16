@@ -6,6 +6,7 @@ public class SmallEnemy extends Enemy{
 		super();
 		type = "small";
 		hp = 25;
+		dmg = 10;
 		description = "A small warrior runs at you with a sword.";
 	}
 	
